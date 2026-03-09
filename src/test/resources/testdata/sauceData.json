@@ -1,0 +1,13 @@
+{
+  "url": "https://www.saucedemo.com/",
+  "user": {
+    "username": "standard_user",
+    "password": "secret_sauce"
+  },
+  "purchase": {
+    "products": ["sauce-labs-backpack", "sauce-labs-bike-light"],
+    "firstName": "Dennis",
+    "lastName": "Montalvo",
+    "postalCode": "090101"
+  }
+}
