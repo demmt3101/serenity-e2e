@@ -1,10 +1,8 @@
-@beginner
-Feature: Validación básica de la página de inicio de sesión
+Feature: Login básico
 
-  Scenario: Abrir SauceDemo y validar elementos principales
-    Given que el usuario abre la página de SauceDemo
-    Then el título de la página debe ser "Swag Labs"
-    And el logo de la aplicación debe ser visible
-    And el campo username debe ser visible
-    And el campo password debe ser visible
-    And el botón login debe ser visible
+  Scenario: Login exitoso
+    Given que el usuario abre la pagina de login
+    When ingresa el usuario "standard_user"
+    And ingresa la contraseña "secret_sauce"
+    And hace clic en el boton login
+    Then deberia visualizar la pagina principal

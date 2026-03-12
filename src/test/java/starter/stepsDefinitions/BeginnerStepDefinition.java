@@ -1,51 +1,50 @@
 package starter.stepsDefinitions;
 
-import com.tcs.UI.LoginPage;
-import com.tcs.utils.BeginnerData;
-import com.tcs.utils.BeginnerJsonReader;
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
-import net.serenitybdd.annotations.Managed;
-import org.openqa.selenium.WebDriver;
+import io.cucumber.java.en.When;
+import net.serenitybdd.core.pages.PageObject;
+import org.junit.Assert;
+import org.openqa.selenium.By;
 
-import static org.assertj.core.api.Assertions.assertThat;
+public class BeginnerStepDefinition extends PageObject {
 
-public class BeginnerStepDefinition {
+    By txtUsername = By.id("user-name");
+    By txtPassword = By.id("password");
+    By btnLogin = By.id("login-button");
+    By lblProducts = By.xpath("//span[text()='Products']");
 
-    @Managed(driver = "chrome")
-    WebDriver driver;
-
-    private final LoginPage loginPage = new LoginPage();
-    private final BeginnerData data = BeginnerJsonReader.getBeginnerData();
-
-    @Given("que el usuario abre la página de SauceDemo")
-    public void queElUsuarioAbreLaPaginaDeSauceDemo() {
-        loginPage.setDriver(driver);
-        loginPage.openPage(data.getUrl());
+    @Given("que el usuario abre la pagina de login")
+    public void queElUsuarioAbreLaPaginaDeLogin() throws InterruptedException {
+        openUrl("https://www.saucedemo.com/");
+        Thread.sleep(2000);
     }
 
-    @Then("el título de la página debe ser {string}")
-    public void elTituloDeLaPaginaDebeSer(String tituloEsperado) {
-        assertThat(loginPage.getCurrentTitle()).isEqualTo(tituloEsperado);
+    @When("ingresa el usuario {string}")
+    public void ingresaElUsuario(String usuario) throws InterruptedException {
+        $(txtUsername).waitUntilVisible().type(usuario);
+        Thread.sleep(1000);
     }
 
-    @Then("el logo de la aplicación debe ser visible")
-    public void elLogoDebeSerVisible() {
-        assertThat(loginPage.isLogoVisible()).isTrue();
+    @And("ingresa la contraseña {string}")
+    public void ingresaLaContrasena(String password) throws InterruptedException {
+        $(txtPassword).waitUntilVisible().type(password);
+        Thread.sleep(1000);
     }
 
-    @Then("el campo username debe ser visible")
-    public void elCampoUsernameDebeSerVisible() {
-        assertThat(loginPage.isUsernameVisible()).isTrue();
+    @And("hace clic en el boton login")
+    public void haceClicEnElBotonLogin() throws InterruptedException {
+        $(btnLogin).waitUntilClickable().click();
+        Thread.sleep(2000);
     }
 
-    @Then("el campo password debe ser visible")
-    public void elCampoPasswordDebeSerVisible() {
-        assertThat(loginPage.isPasswordVisible()).isTrue();
-    }
-
-    @Then("el botón login debe ser visible")
-    public void elBotonLoginDebeSerVisible() {
-        assertThat(loginPage.isLoginButtonVisible()).isTrue();
+    @Then("deberia visualizar la pagina principal")
+    public void deberiaVisualizarLaPaginaPrincipal() throws InterruptedException {
+        Thread.sleep(1000);
+        Assert.assertTrue(
+                "El login no fue exitoso",
+                $(lblProducts).waitUntilVisible().isDisplayed()
+        );
     }
 }
