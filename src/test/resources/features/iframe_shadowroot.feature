@@ -1,5 +1,5 @@
 @intermediate
-Feature: Manejo de contextos especiales del DOM
+Feature: Manejo de iframe y shadow root
 
   Scenario: Interactuar con un iframe
     Given que el usuario abre la pagina de iframe
