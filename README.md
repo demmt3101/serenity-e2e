@@ -1,111 +1,183 @@
-# 🚀 Sauce Serenity E2E - Beginner
+# 🚀 Serenity E2E – SauceDemo (Beginner)
 
 ## 📌 Descripción
 
-Este branch contiene la solución del ejercicio **beginner** usando **SerenityBDD + Cucumber + Selenium + Gradle**.
+Este proyecto contiene una automatización **E2E (End‑to‑End)** implementada con  
+**SerenityBDD + Cucumber + Selenium + Gradle**, utilizando **Screenplay Pattern directamente en los Step Definitions**.
 
-El objetivo de este nivel es demostrar una automatización básica con:
+El ejercicio corresponde al nivel **Beginner** y demuestra una base sólida de automatización, aplicando buenas prácticas sin sobre‑arquitectura.
 
-- configuración inicial del proyecto
-- uso de `build.gradle`
-- uso de `serenity.conf`
-- uso de `serenity.properties`
-- escenario en archivo `.feature`
-- consumo de datos desde JSON
-- implementación de `PageObject`
-- validaciones básicas sobre la página
+---
 
 ## 🎯 Objetivo del ejercicio
 
-Implementar una prueba sencilla que permita:
+Automatizar un flujo completo de compra en la aplicación **SauceDemo**, validando:
 
-- abrir la página de **SauceDemo**
-- validar el título de la página
-- validar la visibilidad de elementos principales del login
+- acceso correcto al sistema
+- visualización de la página de productos
+- selección dinámica de productos
+- flujo de checkout
+- confirmación de orden exitosa
 
-## 🧩 Tecnologías usadas
+---
 
-- **Java 17** ☕
+## 🧩 Tecnologías utilizadas
+
+- **Java 17** ☕ (Java Toolchain)
 - **Gradle** 🛠️
-- **SerenityBDD** 📊
-- **Cucumber** 🥒
-- **Selenium WebDriver** 🌐
-- **JSON Simple** 📁
-- **AssertJ** ✅
+- **SerenityBDD 4**
+- **Cucumber**
+- **Selenium WebDriver**
+- **Screenplay Pattern**
+- **JUnit Platform**
+
+---
+
+## 🧠 Enfoque de automatización
+
+La solución utiliza el **Screenplay Pattern**, aplicado directamente dentro de los **Step Definitions**, sin separar aún en:
+
+- Tasks
+- Questions
+- PageObjects
+
+Este enfoque fue elegido para:
+
+- facilitar el aprendizaje inicial de Screenplay
+- mantener el código simple y legible
+- evitar sobre‑ingeniería en una prueba beginner
+
+Los pasos expresan la **intención del usuario**, utilizando:
+
+- `Actor`
+- `BrowseTheWeb`
+- `Open`
+- `Enter`
+- `Click`
+
+---
 
 ## 📝 Escenario implementado
 
-### **Feature:** Validación básica de la página de inicio de sesión
+### Feature: Compra de productos en SauceDemo
 
-### **Scenario:** Abrir SauceDemo y validar elementos principales
+### Scenario: Compra exitosa de dos productos aleatorios
 
-- abrir la página
-- validar el título
-- validar logo visible
-- validar campo username visible
-- validar campo password visible
-- validar botón login visible
+El escenario cubre el siguiente flujo:
 
-## 📄 Datos de prueba
+- el usuario abre la página de login
+- ingresa credenciales válidas
+- visualiza la página de productos
+- selecciona **dos productos aleatorios**
+- navega al carrito de compras
+- inicia el proceso de checkout
+- completa la información requerida
+- finaliza la compra
+- valida el mensaje de orden completada
 
-Los datos se consumen desde un archivo JSON ubicado en:
+---
 
-`src/test/resources/testdata/beginnerData.json`
+## 🎲 Selección aleatoria de productos
 
-### Ejemplo
+La automatización selecciona **dos productos distintos de forma aleatoria**, asegurando que:
 
-```json
-{
-  "url": "https://www.saucedemo.com/",
-  "expectedTitle": "Swag Labs"
-}
-```
-## 🏗️ PageObject implementado
+- no se repita el mismo producto
+- cada ejecución pueda cubrir combinaciones diferentes
 
-Se implementó un `PageObject` llamado `LoginPage`, el cual contiene:
+Esto se logra mezclando dinámicamente la lista de productos disponibles antes de agregarlos al carrito.
 
-- apertura de la página
-- lectura del título
-- validación del logo
-- validación del campo username
-- validación del campo password
-- validación del botón login
+---
 
-Esto permite mantener una estructura más limpia, reutilizable y alineada con buenas prácticas de automatización. ✅
-
-## ▶️ Ejecución
+## ▶️ Ejecución del proyecto
 
 Desde la raíz del proyecto:
 
 ```bash
-gradlew clean test
+./gradlew clean test
 ```
-## 📊 Reportería
 
-El reporte de Serenity se genera en:
+Al finalizar la ejecución, Gradle invoca automáticamente la generación del reporte Serenity mediante la tarea `aggregate`.
 
-`target/site/serenity/index.html`
+---
 
-## ⚙️ Configuración
+## 📊 Reportes
 
-El proyecto utiliza los siguientes archivos principales de configuración:
+Serenity genera un reporte detallado de la ejecución que incluye:
+
+- pasos ejecutados
+- capturas de pantalla automáticas
+- estado del escenario
+- tiempos de ejecución
+
+**Ruta del reporte:**
+
+```
+target/site/serenity/index.html
+```
+
+---
+
+## ⚙️ Configuración del proyecto
+
+Los archivos principales de configuración son:
 
 - `build.gradle`
 - `serenity.conf`
 - `serenity.properties`
+- `gradle-wrapper.properties`
 
-Estos archivos permiten definir dependencias, configuración de ejecución y comportamiento general de SerenityBDD.
+Estos archivos definen:
 
-## ✅ Qué demuestra este branch
+- dependencias del proyecto
+- uso de **Java 17 Toolchain**
+- integración con **Cucumber y JUnit Platform**
+- comportamiento general de **SerenityBDD**
 
-- configuración básica del proyecto
-- uso de SerenityBDD
-- uso de Cucumber con escenarios `.feature`
-- lectura de datos desde JSON
-- implementación de `PageObject`
-- validaciones básicas UI
-- reportería automática con Serenity
+---
+
+## ✅ Qué demuestra este ejercicio
+
+- configuración moderna de SerenityBDD con Gradle
+- uso correcto de Java Toolchains
+- integración Cucumber + Screenplay
+- automatización de un flujo E2E real
+- selección dinámica de datos
+- ejecución estable y reproducible
+- generación automática de reportes
+
+---
+
+## 🧪 Nivel del ejercicio
+
+🟢 **Beginner**
+
+Este nivel está enfocado en:
+
+- comprender SerenityBDD
+- introducir Screenplay Pattern
+- construir una base antes de evolucionar a:
+  - Tasks
+  - Questions
+  - PageObjects
+  - manejo avanzado de datos
+
+---
 
 ## 👨‍💻 Resultado
 
-Este branch representa el nivel **beginner** de la prueba técnica, enfocado en una automatización simple, clara y bien estructurada. 🎉
+El proyecto representa una automatización E2E funcional, clara y extensible, preparada como base para niveles intermedios y avanzados.
+
+✅ Ejecutable  
+✅ Mantenible  
+✅ Escalable  
+✅ Alineada a buenas prácticas
+
+---
+
+## 🚀 Próximos pasos sugeridos
+
+- migrar lógica a **Tasks & Questions**
+- agregar datos dinámicos (Faker)
+- paralelizar ejecución
+- integrar CI/CD (GitHub Actions)
+- crear el nivel **Intermediate**
